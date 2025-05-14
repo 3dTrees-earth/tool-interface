@@ -1,6 +1,6 @@
 [project]
 name = "tool_interface"
-version = "0.1.0"
+dynamic = ["version"]  # Mark version as dynamic
 description = "Main Python package to access the 3DTrees backend from tool containers"
 authors = [
     {name = "Mirko Mälicke"}
