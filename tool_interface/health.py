@@ -7,6 +7,7 @@ from botocore.exceptions import ClientError
 from supabase import Client, create_client
 
 from .config import get_settings
+from ._connections import get_supabase_client, get_storage_client
 
 # Current version of the tool-interface package
 # This should match the latest schema version in Supabase
@@ -27,11 +28,7 @@ def check_supabase_connection(
         Tuple[bool, str]: (success, message)
     """
     try:
-        # Get settings with potential overrides
-        settings = get_settings(**(settings_override or {}))
-
-        # Create Supabase client
-        client: Client = create_client(settings.supabase_url, settings.supabase_key)
+        client = get_supabase_client(settings_override)
 
         # Try to get the current schema version
         response = client.table("_schema_version").select("*").order("applied_at", desc=True).limit(1).execute()
@@ -80,18 +77,8 @@ def check_storage_connection(
         Tuple[bool, str]: (success, message)
     """
     try:
-        # Get settings with potential overrides
         settings = get_settings(**(settings_override or {}))
-
-        # Create S3 client (works with GCS due to interoperability)
-        session = Session()
-        s3_client = session.client(
-            "s3",
-            endpoint_url=settings.storage_endpoint_url,
-            aws_access_key_id=settings.storage_access_key,
-            aws_secret_access_key=settings.storage_secret_key,
-            region_name=settings.storage_region,
-        )
+        s3_client = get_storage_client(settings_override)
 
         # Try to list objects to verify connection
         s3_client.head_bucket(Bucket=settings.storage_bucket_name)

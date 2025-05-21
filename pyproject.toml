@@ -1,15 +1,19 @@
 [project]
 name = "tool_interface"
-dynamic = ["version"]  # Mark version as dynamic
+version = "0.1.0"
 description = "Main Python package to access the 3DTrees backend from tool containers"
 authors = [
     {name = "Mirko Mälicke"}
 ]
 dependencies = [
-    "supabase>=2.3.0",  # Official Supabase Python client
-    "boto3>=1.34.0",    # AWS SDK for Python (S3 operations)
-    "pydantic>=2.6.0",  # For data validation and settings management
-    "pydantic-settings>=2.0.0",  # For settings management with environment variables
+    "supabase",
+    "boto3",
+    "botocore",
+    "s3transfer",
+    "s3fs",
+    "aiobotocore",
+    "pydantic",
+    "pydantic-settings",
 ]
 requires-python = ">=3.9"
 readme = "README.md"
@@ -17,19 +21,16 @@ license = {file = "LICENSE"}
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.0.0",
-    "pytest-cov>=4.1.0",
-    "ruff>=0.2.0",
-    "pre-commit>=3.6.0",
-    "mypy>=1.8.0",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "pre-commit",
+    "mypy",
 ]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
-
-[tool.hatch.version]
-source = "vcs"
 
 [tool.ruff]
 line-length = 160
