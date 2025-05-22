@@ -1,9 +1,12 @@
-"""Configuration management for tool-interface."""
-
+from pathlib import Path
 from functools import lru_cache
 from typing import Any, Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from dotenv import load_dotenv
+
+load_dotenv(Path.cwd() / "default.env", override=False)
+load_dotenv(Path.cwd() / ".env", override=False)
 
 
 class Settings(BaseSettings):
@@ -22,8 +25,6 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(
         env_prefix="THREEDTREES_",
-        env_file=".env",
-        env_file_encoding="utf-8",
         case_sensitive=False,
     )
 
