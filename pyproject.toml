@@ -1,6 +1,6 @@
 [project]
 name = "tool_interface"
-version = "0.1.1"
+version = "0.1.2"
 description = "Main Python package to access the 3DTrees backend from tool containers"
 authors = [
     {name = "Mirko Mälicke"}
