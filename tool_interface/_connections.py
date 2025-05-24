@@ -25,7 +25,7 @@ def get_storage_client(settings_override: Optional[dict[str, Any]] = None):
         endpoint_url=settings.storage_endpoint_url,
         aws_access_key_id=settings.storage_access_key,
         aws_secret_access_key=settings.storage_secret_key,
-        config=Config(signature_version="s3")
+        config=Config(signature_version="s3"),
         #region_name=settings.storage_region,
     )
 

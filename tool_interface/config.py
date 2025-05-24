@@ -16,6 +16,10 @@ class Settings(BaseSettings):
     supabase_url: str = ""
     supabase_key: str = ""
 
+    # Supabase table names
+    datasets_table: str = "datasets"
+    las_metadata_table: str = "las_metadata"
+
     # Storage settings (S3 compatible)
     storage_endpoint_url: Optional[str] = None
     storage_access_key: str = ""
