@@ -46,7 +46,11 @@ class Dataset(BaseModel):
     def source_path(self) -> Path:
         return Path(self.bucket_prefix) / self.object_name
     
-    def download_las(self, target: str) -> Path:
-        return download_file(name=self.object_name, prefix=self.bucket_prefix, target=target, settings_override=self._settings)
+    def download_las(self, target_dir: str = '.') -> Path:
+        if self._settings is None:
+            settings = {}
+        else:
+            settings = self._settings.model_dump()
+        return download_file(name=self.object_name, prefix=self.bucket_prefix, target=target_dir, settings_override=settings)
 
 
